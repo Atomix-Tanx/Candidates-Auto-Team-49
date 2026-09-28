@@ -1,0 +1,103 @@
+const int PWM2A = 11;
+const int PWM2B = 3;
+const int PWM0A = 6;
+const int PWM0B = 5;
+const int DIR_CLK = 4;
+const int DIR_EN = 7;
+const int DATA = 8;
+const int DIR_LATCH = 12;
+
+const int Move_Forward = 39;
+const int Move_Backward = 216;
+const int Left_Move = 116;
+const int Right_Move = 139;
+const int Right_Rotate = 149;
+const int Left_Rotate = 106;
+const int Stop = 0;
+const int Upper_Left_Move = 36;
+const int Upper_Right_Move = 3;
+const int Lower_Left_Move = 80;
+const int Lower_Right_Move = 136;
+const int Drift_Left = 20;
+const int Drift_Right = 10;
+
+int Speed1 = 255;
+int Speed2 = 255;
+int Speed3 = 255;
+int Speed4 = 255;
+
+void Motor(int Dir, int Speed1, int Speed2, int Speed3, int Speed4) {
+  analogWrite(PWM2A, Speed1);
+  analogWrite(PWM2B, Speed2);
+  analogWrite(PWM0A, Speed3);
+  analogWrite(PWM0B, Speed4);
+
+  digitalWrite(DIR_LATCH, LOW);
+  shiftOut(DATA, DIR_CLK, MSBFIRST, Dir);
+  digitalWrite(DIR_LATCH, HIGH);
+}
+
+void setup() 
+{
+  pinMode(DIR_CLK, OUTPUT);
+  pinMode(DATA, OUTPUT);
+  pinMode(DIR_EN, OUTPUT);
+  pinMode(DIR_LATCH, OUTPUT);
+  pinMode(PWM0B, OUTPUT);
+  pinMode(PWM0A, OUTPUT);
+  pinMode(PWM2A, OUTPUT);
+  pinMode(PWM2B, OUTPUT);
+}
+
+void loop() 
+{
+  Motor(Right_Rotate, Speed1, Speed2, Speed3, Speed4);
+  delay(2000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Left_Rotate, Speed1, Speed2, Speed3, Speed4);
+  delay(2000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Move_Forward, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Move_Backward, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Left_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Right_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Upper_Left_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Upper_Right_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Lower_Left_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+  
+  Motor(Lower_Right_Move, Speed1, Speed2, Speed3, Speed4);
+  delay(1000);
+  Motor(Stop, 0, 0, 0, 0);
+  delay(1000);
+}
